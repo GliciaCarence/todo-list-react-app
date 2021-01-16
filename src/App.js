@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import TaskForm from "./components/TaskForm";
+import TaskList from "./components/TaskList";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faListAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+library.add(faListAlt, faTrashAlt);
+
+const App = () => {
+    // this state will store what the user types in the input field
+    const [input, setInput] = useState("");
+
+    // this state will store a list of tasks
+    const [tasks, setTasks] = useState([]);
+    console.log(tasks);
+    return (
+        <>
+            <Header />
+            <main className="app-container">
+                <section className="first-section">
+                    <TaskList tasks={tasks} setTasks={setTasks} />
+                </section>
+
+                <section className="last-section">
+                    <TaskForm
+                        input={input}
+                        setInput={setInput}
+                        tasks={tasks}
+                        setTasks={setTasks}
+                    />
+                </section>
+            </main>
+            <Footer />
+        </>
+    );
+};
 
 export default App;
